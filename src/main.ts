@@ -1,12 +1,27 @@
 import { app, BrowserWindow } from "electron";
 import path from "path";
+import { readFileSync, existsSync } from "fs";
 
 let mainWindow: BrowserWindow | null = null;
 const isDev = process.env.NODE_ENV === "development";
-const devServerURL = "http://localhost:5175"; // Assicurati di usare la porta corretta
+
+const getDevServerURL = () => {
+  if (isDev) {
+    const devServerPath = path.join(__dirname, "../dist/.vite_dev_server.json");
+    if (existsSync(devServerPath)) {
+      try {
+        const devServerInfo = JSON.parse(readFileSync(devServerPath, "utf-8"));
+        return `http://localhost:${devServerInfo.port}`;
+      } catch (error) {
+        console.error("Errore nel parsing di .vite_dev_server.json:", error);
+      }
+    }
+  }
+  return "http://localhost:5173"; // Porta predefinita
+};
 
 const createMainWindow = () => {
-  if (mainWindow) return; // Previeni la creazione di più finestre
+  if (mainWindow) return;
 
   mainWindow = new BrowserWindow({
     width: 800,
@@ -17,18 +32,20 @@ const createMainWindow = () => {
   });
 
   if (isDev) {
-    console.log("Caricamento URL in modalità sviluppo:", devServerURL); // Debug
+    const devServerURL = getDevServerURL();
+    console.log("Caricamento URL in modalità sviluppo:", devServerURL);
     mainWindow.loadURL(devServerURL).catch((err) => {
       console.error("Errore nel caricamento del Dev Server di Vite:", err);
     });
 
-    // Apri DevTools in modalità sviluppo
     mainWindow.webContents.openDevTools();
   } else {
-    console.log("Caricamento file HTML in modalità produzione..."); // Debug
+    console.log("Caricamento file HTML in modalità produzione...");
     mainWindow.loadFile(path.join(__dirname, "index.html")).catch((err) => {
       console.error("Errore nel caricamento del file HTML:", err);
     });
+
+    mainWindow.removeMenu();
   }
 
   mainWindow.on("closed", () => {
