@@ -21,6 +21,7 @@ body.dark-theme {
   padding: 10px;
   background-color: #6200ea;
   color: white;
+  flex-wrap: wrap;
 }
 
 #toolbar label {
@@ -42,6 +43,7 @@ body.dark-theme {
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
+  margin-top: 5px; /* Per evitare sovrapposizioni */
 }
 
 #toolbar button:hover {
@@ -51,8 +53,14 @@ body.dark-theme {
 /* Layout del contenuto */
 #content {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 15px;
   padding: 15px;
+  flex-wrap: wrap; /* Si adatta automaticamente su dispositivi piccoli */
+  min-height: calc(
+    100vh - 80px
+  ); /* Garantisce che il contenuto occupi tutta la finestra */
 }
 
 /* Editor */
@@ -61,25 +69,25 @@ body.dark-theme {
   font-family: monospace;
   font-size: 1rem;
   line-height: 1.5;
-  min-height: 500px; /* Altezza minima */
-  max-height: 1000px; /* Altezza massima */
+  flex: 1 1 60%; /* Occupazione dinamica dello spazio */
+  min-height: 300px;
   overflow-y: auto;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 15px;
-  margin: 10px 0;
-  transition: height 0.2s ease; /* Animazione fluida */
+  transition: height 0.2s ease, width 0.2s ease;
 }
 
 /* Anteprima */
 #preview {
+  flex: 1 1 35%; /* Anteprima dinamica */
   white-space: pre-wrap;
   background-color: #f0f0f0;
-  overflow-y: auto; /* Aggiunge scorrimento se necessario */
-  max-height: 400px; /* Altezza massima */
+  overflow-y: auto;
   padding: 15px;
   border-radius: 8px;
   border: 1px solid #ddd;
+  transition: height 0.2s ease, width 0.2s ease;
 }
 
 #preview.dark-theme {
@@ -90,4 +98,31 @@ body.dark-theme {
 #preview.error {
   color: red;
   font-weight: bold;
+}
+
+/* Stile per dispositivi piccoli */
+@media (max-width: 768px) {
+  #content {
+    flex-direction: column; /* Disposizione verticale */
+  }
+
+  #editor,
+  #preview {
+    flex: 1 1 100%; /* Entrambi occupano tutta la larghezza */
+    min-height: 250px;
+  }
+
+  #toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+}
+
+/* Stile per dispositivi medi */
+@media (min-width: 769px) and (max-width: 1200px) {
+  #editor,
+  #preview {
+    flex: 1 1 48%; /* Layout più compatto */
+  }
 }
