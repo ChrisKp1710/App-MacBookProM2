@@ -7,32 +7,34 @@
   "main": "dist/main.js",
   "private": true,
   "devDependencies": {
-      "@types/electron": "^1.6.12",
-      "@types/node": "^22.10.5",
-      "electron": "^33.2.1",
-      "electron-builder": "^25.1.8",
-      "vite": "^6.0.7",
-      "vite-plugin-electron": "^0.29.0",
-      "vite-plugin-electron-renderer": "^0.14.6"
+    "@types/electron": "^1.6.12",
+    "@types/node": "^22.10.5",
+    "concurrently": "^9.1.2",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
+    "electronmon": "^2.0.3",
+    "vite": "^6.0.7",
+    "vite-plugin-electron": "^0.29.0",
+    "vite-plugin-electron-renderer": "^0.14.6"
   },
   "scripts": {
-      "dev": "vite",
-      "build": "vite build",
-      "start": "electron dist/main.js",
-      "pack": "electron-builder --dir",
-      "dist": "yarn full-build && electron-builder",
-      "postbuild": "node scripts/postbuild.js",
-      "full-build": "yarn build && yarn postbuild"
+    "dev": "vite",
+    "build": "vite build",
+    "start": "electron dist/main.js",
+    "pack": "electron-builder --dir",
+    "dist": "yarn full-build && electron-builder",
+    "postbuild": "node scripts/postbuild.js",
+    "full-build": "yarn build && yarn postbuild"
   },
   "dependencies": {
-      "@codemirror/basic-setup": "^0.20.0",
-      "@codemirror/lang-html": "^6.4.9",
-      "@codemirror/lang-json": "^6.0.1",
-      "@codemirror/lang-markdown": "^6.3.1",
-      "@codemirror/state": "^6.5.0",
-      "@codemirror/view": "^6.36.1"
+    "@codemirror/basic-setup": "^0.20.0",
+    "@codemirror/lang-html": "^6.4.9",
+    "@codemirror/lang-json": "^6.0.1",
+    "@codemirror/lang-markdown": "^6.3.1",
+    "@codemirror/state": "^6.5.0",
+    "@codemirror/view": "^6.36.1"
   },
   "resolutions": {
-      "@codemirror/state": "^6.5.0"
+    "@codemirror/state": "^6.5.0"
   }
 }

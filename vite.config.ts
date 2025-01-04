@@ -17,6 +17,9 @@ export default defineConfig({
   plugins: [
     electron({
       entry: resolve(__dirname, "src/main.ts"), // Processo principale
+      onstart: (options) => {
+        options.startup(); // Avvia automaticamente Electron in modalità sviluppo
+      },
       vite: {
         build: {
           outDir: "../dist", // Imposta la stessa directory dist
