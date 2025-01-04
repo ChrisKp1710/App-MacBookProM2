@@ -1,0 +1,44 @@
+# Ignora la cartella node_modules
+node_modules/
+
+# Ignora dist e dist-builder
+dist/
+dist-builder/
+
+# Ignora i file generati dalla build
+*.log
+*.tmp
+*.lock
+.DS_Store
+
+# Ignora file di configurazione locali
+*.local
+*.env.local
+.env
+
+# Ignora i file generati da IDE/Editor
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Ignora i file temporanei
+*.log
+*.tmp
+*.lock
+.DS_Store
+
+# Ignora tutto dentro .yarn eccetto quanto specificato
+.yarn/*
+.yarn/patches
+.yarn/plugins
+.yarn/releases
+.yarn/sdks
+.yarn/versions
+
+
+# Zero-Installs specific (opzionale, lascia commentato se non lo usi)
+.yarn/cache
+#.pnp.*

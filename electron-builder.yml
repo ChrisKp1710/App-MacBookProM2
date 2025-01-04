@@ -1,0 +1,17 @@
+appId: com.myelectronapp
+productName: MyElectronApp
+npmArgs:
+  - "--check-cache"
+directories:
+  output: dist-builder
+  app: dist
+files:
+  - "**/*"
+  - "!node_modules"
+  - "!**/node_modules/*/{README,README.md}"
+  - "!**/node_modules/*/{CHANGELOG,CHANGELOG.md,CHANGELOG.txt}"
+  - "!**/node_modules/*/test/**"
+mac:
+  target:
+    - dmg
+    - zip
