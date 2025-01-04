@@ -11,7 +11,7 @@
       <div id="toolbar">
         <div>
           <label for="format-selector">Formato:</label>
-          <select id="format-selector" aria-label="Seleziona formato">
+          <select id="format-selector">
             <option value="text">Testo Normale</option>
             <option value="json">JSON</option>
             <option value="html">HTML</option>
@@ -25,9 +25,8 @@
         <textarea
           id="editor"
           placeholder="Scrivi i tuoi appunti qui..."
-          autofocus
         ></textarea>
-        <div id="preview"></div>
+        <div id="preview">Anteprima del contenuto</div>
       </div>
     </div>
     <script type="module" src="./renderer.ts"></script>
