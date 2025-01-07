@@ -6,12 +6,20 @@ directories:
   output: dist-builder
   app: dist
 files:
-  - "**/*"
-  - "!node_modules"
-  - "!**/node_modules/*/{README,README.md}"
-  - "!**/node_modules/*/{CHANGELOG,CHANGELOG.md,CHANGELOG.txt}"
-  - "!**/node_modules/*/test/**"
+  - "**/*" # Include tutti i file dal dist
+  - "node_modules/better-sqlite3/**/*" # Include tutti i file di better-sqlite3
+  - "node_modules/better-sqlite3/build/Release/*.node" # Include il file nativo
+  - "!node_modules/.bin" # Esclude gli script binari
+  - "!**/node_modules/*/{README,README.md}" # Esclude README
+  - "!**/node_modules/*/{CHANGELOG,CHANGELOG.md,CHANGELOG.txt}" # Esclude i changelog
+  - "!**/node_modules/*/test/**" # Esclude i test
+asarUnpack:
+  - "node_modules/better-sqlite3/build/Release/*.node" # Estrai il file nativo dal file asar
+
 mac:
   target:
     - dmg
     - zip
+  entitlements: entitlements.mac.plist # Specifica il file di entitlements
+  hardenedRuntime: true # Attiva il runtime protetto (necessario per la distribuzione su macOS)
+

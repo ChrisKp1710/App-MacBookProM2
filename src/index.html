@@ -9,15 +9,14 @@
   <body>
     <div id="app">
       <div id="toolbar">
-        <div>
-          <label for="format-selector">Formato:</label>
-          <select id="format-selector">
-            <option value="text">Testo Normale</option>
-            <option value="json">JSON</option>
-            <option value="html">HTML</option>
-            <option value="md">Markdown</option>
-          </select>
-        </div>
+        <input id="title-input" type="text" placeholder="Titolo dell'appunto" />
+        <button id="save-button">💾 Salva</button>
+        <select id="format-selector" title="Seleziona il formato">
+          <option value="text">Testo Normale</option>
+          <option value="json">JSON</option>
+          <option value="html">HTML</option>
+          <option value="md">Markdown</option>
+        </select>
         <button id="theme-toggle">🌗 Cambia Tema</button>
       </div>
 

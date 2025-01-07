@@ -4,6 +4,14 @@ import { json } from "@codemirror/lang-json";
 import { html } from "@codemirror/lang-html";
 import { markdown } from "@codemirror/lang-markdown";
 
+// Test rapido per verificare window.electronAPI
+if (window.electronAPI) {
+  console.log("window.electronAPI è disponibile!");
+} else {
+  console.error("window.electronAPI non è disponibile.");
+}
+
+// Elementi UI
 const preview = document.getElementById("preview") as HTMLDivElement;
 const formatSelector = document.getElementById(
   "format-selector"
@@ -11,6 +19,8 @@ const formatSelector = document.getElementById(
 const themeToggle = document.getElementById(
   "theme-toggle"
 ) as HTMLButtonElement;
+const saveButton = document.getElementById("save-button") as HTMLButtonElement;
+const titleInput = document.getElementById("title-input") as HTMLInputElement;
 
 // Crea l'editor con CodeMirror
 const editorContainer = document.getElementById("editor") as HTMLDivElement;
@@ -104,3 +114,25 @@ function markdownToHTML(md: string): string {
   );
   return links.replace(/\n/g, "<br />");
 }
+
+// Gestione del clic sul pulsante "Salva"
+saveButton?.addEventListener("click", async () => {
+  const titolo = titleInput.value.trim(); // Prendi il titolo
+  const contenuto = editor.state.doc.toString().trim(); // Prendi il contenuto dall'editor
+
+  if (!titolo || !contenuto) {
+    alert("Titolo e contenuto non possono essere vuoti!");
+    return;
+  }
+
+  // Invio al processo principale per salvare
+  const response = await window.electronAPI.salvaAppunto({ titolo, contenuto });
+
+  if (response.success) {
+    console.log("Appunto salvato con successo:", response.id);
+    alert("Appunto salvato!");
+  } else {
+    console.error("Errore durante il salvataggio dell'appunto");
+    alert("Errore durante il salvataggio.");
+  }
+});

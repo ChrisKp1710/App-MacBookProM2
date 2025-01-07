@@ -1,6 +1,31 @@
 import { app, BrowserWindow } from "electron";
 import path from "path";
 import { readFileSync, existsSync } from "fs";
+import "./ipc-handlers/notes";
+import { join } from "path";
+
+const betterSqlite3Path =
+  process.env.NODE_ENV === "development"
+    ? join(
+        __dirname,
+        "node_modules",
+        "better-sqlite3",
+        "build",
+        "Release",
+        "better_sqlite3.node"
+      )
+    : join(
+        process.resourcesPath,
+        "app.asar.unpacked",
+        "node_modules",
+        "better-sqlite3",
+        "build",
+        "Release",
+        "better_sqlite3.node"
+      );
+
+const Database = require(betterSqlite3Path);
+console.log("Better-sqlite3 loaded successfully:", Database);
 
 let mainWindow: BrowserWindow | null = null;
 const isDev = process.env.NODE_ENV === "development";
@@ -17,7 +42,7 @@ const getDevServerURL = () => {
       }
     }
   }
-  return "http://localhost:5173"; // Porta predefinita
+  return "http://localhost:5174"; // Porta predefinita
 };
 
 const createMainWindow = () => {
